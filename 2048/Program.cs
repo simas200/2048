@@ -59,19 +59,21 @@ namespace _2048
         {
             int[] temp = new int[4];
             int j;
-            IEnumerable<int> tempEnu;
+            int[,] tempEnu = new int[4,4];
+            for(int i = 0; i < 4; i++)
+            {
+                for(int h = 0; h < 4; h++)
+                {
+                    tempEnu[i,h] = board[i, h];
+                }
+            }
             for(int i = 0; i < 4; i++)
             {
                 switch (direction)
                 {
                     case eDirection.Down:
                         j = 3;
-                        tempEnu = sum(new int[4] { board[3, i], board[2, i], board[1, i], board[0, i] });
-                        for(int k = 0; k < 4; k++)
-                        {
-                            board[k,i] = 0;
-                        }
-                        foreach (int h in tempEnu)
+                        foreach (int h in sum(new int[4] { tempEnu[3, i], tempEnu[2, i], tempEnu[1, i], tempEnu[0, i] }))
                         {
                             board[j, i] = h;
                             j--;
@@ -79,12 +81,7 @@ namespace _2048
                         break;
                     case eDirection.Up:
                         j = 0;
-                        tempEnu = sum(new int[4] { board[0, i], board[1, i], board[2, i], board[3, i] });
-                        for (int k = 0; k < 4; k++)
-                        {
-                            board[k, i] = 0;
-                        }
-                        foreach (int h in tempEnu)
+                        foreach (int h in sum(new int[4] { tempEnu[0, i], tempEnu[1, i], tempEnu[2, i], tempEnu[3, i] }))
                         {
                             board[j, i] = h;
                             j++;
@@ -92,12 +89,7 @@ namespace _2048
                         break;
                     case eDirection.Left:
                         j = 0;
-                        tempEnu = sum(new int[4] { board[i, 0], board[i, 1], board[i, 2], board[i, 3] });
-                        for (int k = 0; k < 4; k++)
-                        {
-                            board[i, k] = 0;
-                        }
-                        foreach (int h in tempEnu)
+                        foreach (int h in sum(new int[4] { tempEnu[i, 0], tempEnu[i, 1], tempEnu[i, 2], tempEnu[i, 3] }))
                         {
                             board[i, j] = h;
                             j++;
@@ -105,12 +97,7 @@ namespace _2048
                         break;
                     case eDirection.Right:
                         j = 3;
-                        tempEnu = sum(new int[4] { board[i, 3], board[i, 2], board[i, 1], board[i, 0] });
-                        for (int k = 0; k < 4; k++)
-                        {
-                            board[i, k] = 0;
-                        }
-                        foreach (int h in tempEnu)
+                        foreach (int h in sum(new int[4] { tempEnu[i, 3], tempEnu[i, 2], tempEnu[i, 1], tempEnu[i, 0] }))
                         {
                             board[i, j] = h;
                             j--;
